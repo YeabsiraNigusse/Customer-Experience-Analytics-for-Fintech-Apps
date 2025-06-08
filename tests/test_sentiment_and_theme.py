@@ -1,7 +1,4 @@
 import pandas as pd
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.sentiment_and_theme import analyze_sentiment_and_theme
 
 def test_analyze_sentiment_and_theme(tmp_path):
@@ -23,10 +20,12 @@ def test_analyze_sentiment_and_theme(tmp_path):
     analyze_sentiment_and_theme(str(test_file), str(output_dir))
 
     # Check if output file was created
-    result_file = output_dir / "task2_test_bank_sentiment_theme_results.csv"
+    result_file = output_dir / "test_bank_sentiment_theme_results.csv"
     assert result_file.exists()
 
     # Check contents
     result_df = pd.read_csv(result_file)
     assert "sentiment_label" in result_df.columns
-    assert "theme_keywords" in result_df.columns
+
+    # Match actual column name: 'identified_themes' (not 'theme_keywords')
+    assert "identified_themes" in result_df.columns
