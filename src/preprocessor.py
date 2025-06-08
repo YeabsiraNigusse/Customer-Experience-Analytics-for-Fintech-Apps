@@ -37,16 +37,16 @@ def clean_review_files(input_pattern="data/*_reviews_*.csv", output_file="data/c
                 print(f"⚠️ Skipped empty dataframe from file: {file}")
 
         except Exception as e:
-            print(f"❌ Error processing {file}: {e}")
+            print(f" Error processing {file}: {e}")
 
     # Combine and save
     if dataframes:
         combined_df = pd.concat(dataframes, ignore_index=True)
         combined_df.drop_duplicates(subset=['review', 'date', 'bank'], inplace=True)
         combined_df.to_csv(output_file, index=False)
-        print(f"✅ Cleaned data saved to {output_file} ({len(combined_df)} rows)")
+        print(f"Cleaned data saved to {output_file} ({len(combined_df)} rows)")
     else:
-        print("🚫 No valid data to save. Check your input files.")
+        print("No valid data to save. Check your input files.")
 
 # Run the cleaner
 clean_review_files()
